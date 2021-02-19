@@ -19,5 +19,18 @@
     "imagenet",
     "preprocessed",
     "rgbf32"
-  ]
+  ],
+  "variations": {
+    "layout.nhwc": {
+      "extra_env": {
+        "_LAYOUT": "NHWC"
+      },
+      "on_by_default": "yes"
+    },
+    "layout.nchw": {
+      "extra_env": {
+        "_LAYOUT": "NCHW"
+      },
+      "on_by_default": "no"
+    }
 }
