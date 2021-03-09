@@ -63,6 +63,12 @@
         "PACKAGE_VERSION": "master"
       }
     },
+    "v3.11.4": {
+      "extra_env": {
+        "PACKAGE_GIT_CHECKOUT": "v3.11.4",
+        "PACKAGE_VERSION": "3.11.4"
+      }
+    },
     "v3.14": {
       "extra_env": {
         "PACKAGE_GIT_CHECKOUT": "v3.14.0",
