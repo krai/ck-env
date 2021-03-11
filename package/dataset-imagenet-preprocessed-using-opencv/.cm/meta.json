@@ -113,7 +113,7 @@
         "_SUBTRACT_MEAN": "YES",
         "_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
         "_INTERPOLATION_METHOD": "INTER_AREA",
-        "_QUANT_SCALE": "0.0149677",
+        "_QUANT_SCALE": "1.18944883",
         "_QUANT_OFFSET": "0",
         "_QUANTIZE": "1",
         "_CONVERT_TO_UNSIGNED": "1"
