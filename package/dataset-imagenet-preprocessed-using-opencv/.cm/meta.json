@@ -33,6 +33,11 @@
           {
             "_SUBSET_VOLUME": "50000"
           }
+	],
+        "calibration": [
+          {
+            "_CALIBRATE": "yes"
+          }
         ]
       }
     },
@@ -241,6 +246,11 @@
     "inter.area": {
       "extra_env": {
         "_INTERPOLATION_METHOD": "INTER_AREA"
+      }
+    },
+    "calibration": {
+      "extra_env": {
+        "_CALIBRATE": "yes"
       }
     }
   }
