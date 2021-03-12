@@ -38,7 +38,17 @@
           {
             "PACKAGE_VERSION": "all.500"
           }
-        ]
+        ],
+	"first.5": [
+	  {
+            "PACKAGE_VERSION": "first.5"
+	  }
+        ],
+	"first.1": [
+	  {
+            "PACKAGE_VERSION": "first.1"
+	  }
+	]
       }
     }
   },
