@@ -153,7 +153,7 @@ if __name__ == '__main__':
     given_channel_means     = os.getenv('_GIVEN_CHANNEL_MEANS', '')
     quant_scale             = float( os.environ['_QUANT_SCALE'] )
     quant_offset            = float( os.environ['_QUANT_OFFSET'] )
-    quantize                = int( os.environ['_QUANTIZE'] ) #1 for to int8
+    quantize                = int( os.environ['_QUANTIZE'] ) #1 for quantize to int8
     convert_to_unsigned     = int( os.environ['_CONVERT_TO_UNSIGNED'] ) #1 for int8 to uint8
     
     if given_channel_means:

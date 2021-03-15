@@ -4,7 +4,11 @@
     "install_env": {
       "CK_IMAGE_FILE": "",
       "_NEW_EXTENSION": "rgb8",
-      "_SUBSET_FOF": "original_dimensions.txt"
+      "_SUBSET_FOF": "original_dimensions.txt",
+      "_QUANTIZE": "0",
+      "_QUANT_SCALE": "1",
+      "_QUANT_OFFSET": "0",
+      "_CONVERT_TO_UNSIGNED": "0"
     },
     "no_os_in_suggested_path": "yes",
     "no_ver_in_suggested_path": "yes",
@@ -91,6 +95,15 @@
         "_SUBSET_VOLUME": "20"
       }
     },
+    "first.1": {
+      "extra_customize": {
+        "package_extra_name": " (first 1)"
+      },
+      "extra_env": {
+        "_SUBSET_OFFSET": "0",
+        "_SUBSET_VOLUME": "1"
+      }
+    },
     "first.5": {
       "extra_customize": {
         "package_extra_name": " (first 5)"
@@ -172,6 +185,24 @@
       },
       "extra_customize": {
         "soft_uoa": "dataset.imagenet.preprocessed.rgbf32"
+      }
+    },
+    "for-ssd-resnet-onnx-preprocessed-quant": {
+      "extra_env": {
+        "_DATA_LAYOUT": "NHWC",
+        "_DATA_TYPE": "float32",
+        "_NEW_EXTENSION": "rgb8",
+        "_INPUT_SQUARE_SIDE": "1200",
+        "_NORMALIZE_DATA": "YES",
+        "_NORMALIZE_LOWER": "0.0",
+        "_NORMALIZE_UPPER": "1.0",
+        "_SUBTRACT_MEAN": "YES",
+        "_GIVEN_CHANNEL_MEANS": "0.485 0.456 0.406",
+        "_GIVEN_CHANNEL_STDS": "0.229 0.224 0.225",
+        "_QUANT_SCALE": "0.020787403",
+        "_QUANT_OFFSET": "0",
+        "_QUANTIZE": "1",
+        "_CONVERT_TO_UNSIGNED": "1"
       }
     }
   }

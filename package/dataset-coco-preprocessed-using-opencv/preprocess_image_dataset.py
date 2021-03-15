@@ -19,7 +19,11 @@ def load_image(image_path,                # Full path to processing image
                normalize_lower = -1,      # Normalize - lower limit
                normalize_upper = 1,       # Normalize - upper limit
                subtract_mean = False,     # Subtract mean
-               given_channel_means = ''   # Given channel means
+               given_channel_means = '',  # Given channel means
+               quantize = 0,              # Quantization type, 1 for quantize to int8 
+               quant_scale = 1,           # Quantization scale 
+               quant_offset = 0,          # Quantization offset 
+               convert_to_unsigned  = 0   # 1 to convert from int to uint
               ):
 
     image = cv2.imread(image_path)
@@ -40,7 +44,7 @@ def load_image(image_path,                # Full path to processing image
     image = cv2.resize(image, (target_size, target_size), interpolation=cv2.INTER_LINEAR)
 
     # Convert to NumPy array
-    img = np.asarray(image, dtype=data_type)
+    img = np.asarray(image, np.float32)
 
     if convert_to_bgr:
         img = img[...,::-1]     # swapping Red and Blue colour channels
@@ -49,7 +53,7 @@ def load_image(image_path,                # Full path to processing image
 
     # Normalize
     if normalize_data:
-        img = img*(normalize_upper-normalize_lower)/255.0+normalize_lower
+        img = img*((normalize_upper-normalize_lower)/255.0)+normalize_lower
 
     # Subtract mean value
     if subtract_mean:
@@ -66,13 +70,36 @@ def load_image(image_path,                # Full path to processing image
     elif data_layout == 'CHW4':
         img = np.pad(img, ((0,0), (0,0), (0,1)), 'constant')
 
-    img = np.asarray(img, dtype=data_type)
+    # Value 1 for quantization to int8
+    if quantize == 1:
+        img = quantize_to_int8(img, quant_scale, quant_offset)
+
+    # Value 1 to convert from int8 to uint8
+    if convert_to_unsigned == 1:
+        img = int8_to_uint8(img)
+
 
     # Make batch from single image
     batch_shape = (1, target_size, target_size, 3)
     batch_data = img.reshape(batch_shape)
 
     return batch_data, original_width, original_height
+
+def quantize_to_int8(image, scale, offset):
+    quant_image = (image/scale + offset).astype(np.float32)
+    output = np.copy(quant_image)
+    gtZero = (quant_image > 0).astype(int)
+    gtZero = gtZero * 0.5
+    output=output+gtZero
+    ltZero = (quant_image < 0).astype(int)
+    ltZero = ltZero * (-0.5)
+    output=output+ltZero
+    return output.astype(np.int8)
+
+
+def int8_to_uint8(image):
+    image = (image+128).astype(np.uint8)
+    return image
 
 
 def preprocess_files(selected_filenames,
@@ -86,6 +113,10 @@ def preprocess_files(selected_filenames,
                      normalize_upper,
                      subtract_mean,
                      given_channel_means,
+                     quantize,
+                     quant_scale, 
+                     quant_offset, 
+                     convert_to_unsigned,
                      new_file_extension):
 
     "Go through the selected_filenames and preprocess all the files"
@@ -105,7 +136,11 @@ def preprocess_files(selected_filenames,
                                                                  normalize_lower = normalize_lower,
                                                                  normalize_upper = normalize_upper,
                                                                  subtract_mean = subtract_mean,
-                                                                 given_channel_means = given_channel_means)
+                                                                 given_channel_means = given_channel_means,
+                                                                 quantize = quantize,
+                                                                 quant_scale = quant_scale, 
+                                                                 quant_offset = quant_offset, 
+                                                                 convert_to_unsigned = convert_to_unsigned)
 
         output_filename = input_filename.rsplit('.', 1)[0] + '.' + new_file_extension if new_file_extension else input_filename
 
@@ -149,6 +184,11 @@ if __name__ == '__main__':
     normalize_upper   = float(os.getenv('_NORMALIZE_UPPER',  1.0))
     subtract_mean           = os.getenv('_SUBTRACT_MEAN', 'NO') in ('YES', 'yes', 'ON', 'on', '1')
     given_channel_means     = os.getenv('_GIVEN_CHANNEL_MEANS', '')
+    quant_scale             = float( os.environ['_QUANT_SCALE'] )
+    quant_offset            = float( os.environ['_QUANT_OFFSET'] )
+    quantize                = int( os.environ['_QUANTIZE'] ) #1 for quantize to int8
+    convert_to_unsigned     = int( os.environ['_CONVERT_TO_UNSIGNED'] ) #1 for int8 to uint8
+
     if given_channel_means:
         given_channel_means = np.fromstring(given_channel_means, dtype=np.float32, sep=' ').astype(INTERMEDIATE_DATA_TYPE)
         if convert_to_bgr:
@@ -206,6 +246,10 @@ if __name__ == '__main__':
                                          normalize_upper,
                                          subtract_mean,
                                          given_channel_means,
+                                         quantize,
+                                         quant_scale, 
+                                         quant_offset, 
+                                         convert_to_unsigned,
                                          new_file_extension)
 
     fof_full_path = os.path.join(destination_dir, fof_name)
