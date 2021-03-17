@@ -20,11 +20,13 @@
       "local": "yes",
       "name": "COCO dataset (original or calibration)",
       "sort": 10,
-      "tags": "dataset,object-detection,original",
+      "tags": "dataset,object-detection",
       "or_tags": "val;cal",
       "update_tags_if_env": {
         "coco,2014": [ { "INPUT_DATASET": "coco.2014" } ],
-        "coco,2017": [ { "INPUT_DATASET": "coco.2017" } ]
+        "coco,2017": [ { "INPUT_DATASET": "coco.2017" } ],
+        "val,original": [ { "_VALIDATION": "YES" } ],
+        "cal": [ { "_CALIBRATION": "YES" } ]
       }
     },
     "lib-python-numpy": {
@@ -203,6 +205,16 @@
         "_QUANT_OFFSET": "0",
         "_QUANTIZE": "1",
         "_CONVERT_TO_UNSIGNED": "1"
+      }
+    },
+    "validation": {
+      "extra_env": {
+        "_VALIDATION": "YES"
+      }
+    },
+    "calibration": {
+      "extra_env": {
+        "_CALIBRATION": "YES"
       }
     }
   }
