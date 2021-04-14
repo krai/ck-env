@@ -64,10 +64,10 @@ def setup(i):
           output1_scale = output1_node['scale']
           output1_offset = -output1_node['offset'] - 128
        env[env_prefix + '_NODE_PRECISION_FILE']  = os.path.dirname(full_path)+"/node-precision.yaml"
-       env['CK_ENV_TENSORFLOW_MODEL_TF_FROZEN_FILEPATH'] = os.path.dirname(full_path)+"/ssd_resnet34_aimet.onnx"
+       env['CK_ENV_ONNX_MODEL_ONNX_FILEPATH'] = os.path.dirname(full_path)+"/ssd_resnet34_aimet.onnx"
        #env[env_prefix + '_OUTPUT1_SCALE']  = output1_scale
        #env[env_prefix + '_OUTPUT1_OFFSET']  = output1_offset
-       env[env_prefix + '_ABC_LOC_SCALE']  = output1_scale
-       env[env_prefix + '_ABC_LOC_OFFSET']  = output1_offset
+       env['CK_ENV_ABC_LOC_SCALE']  = output1_scale
+       env['CK_ENV_ABC_LOC_OFFSET']  = output1_offset
 
     return {'return':0, 'bat':''}
