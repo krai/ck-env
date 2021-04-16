@@ -17,6 +17,7 @@
   "tags": [
     "dataset",
     "object-detection",
-    "preprocessed"
+    "preprocessed",
+    "rgb8"
   ]
 }

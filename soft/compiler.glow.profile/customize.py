@@ -57,7 +57,7 @@ def setup(i):
     is_aimet = install_env.get('_AIMET_MODEL')
     if is_aimet == 'yes':
        import yaml
-       with open('profile.yaml') as file:
+       with open(full_path) as file:
           encodings = yaml.load(file, Loader=yaml.FullLoader)
           node = encodings['activation_encodings']
           output1_node=node['325'][0]
