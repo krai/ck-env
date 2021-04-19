@@ -167,8 +167,12 @@ if [ "${PACKAGE_GIT}" == "YES" ] ; then
   if [ -d ${PACKAGE_SUB_DIR} ] ; then
     rm -rf ${PACKAGE_SUB_DIR}
   fi
-
-  git clone ${PACKAGE_GIT_CLONE_FLAGS} ${PACKAGE_URL} ${PACKAGE_SUB_DIR}
+  
+  if [ ${PACKAGE_URL: -4} == ".git" ] ; then
+     git clone ${PACKAGE_GIT_CLONE_FLAGS} ${PACKAGE_URL} ${PACKAGE_SUB_DIR}
+  else
+     git clone ${PACKAGE_GIT_CLONE_FLAGS} ${PACKAGE_URL}".git" ${PACKAGE_SUB_DIR}
+  fi
 
   if [ "${?}" != "0" ] ; then
     echo "Error: git cloning failed!"
