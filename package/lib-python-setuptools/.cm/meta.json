@@ -27,13 +27,25 @@
   "tags": [
     "lib",
     "python-package",
-    "setuptools",
-    "vmaster"
+    "setuptools"
   ],
   "template": "yes",
   "template_type": "Python library",
   "use_scripts_from_another_entry": {
     "data_uoa": "e4d8d3d2c4c67902",
     "module_uoa": "package"
+  },
+  "variations": {
+    "vmaster": {
+      "extra_customize": {
+        "version": "master"
+      },
+      "on_by_default": "yes"
+    },
+    "v41.0": {
+      "extra_customize": {
+        "version": "41.0"
+      }
+    }
   }
 }
