@@ -181,6 +181,8 @@ def setup(i):
        env['CK_PYTHON_VER2']='YES'
     elif pver=='3':
        env['CK_PYTHON_VER3']='YES'
+       if len(sver) > 1:
+          env['CK_PYTHON3_MINOR_VERSION']=sver[1]
 
     # Checking pip
     lpip=[]
