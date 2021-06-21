@@ -1,0 +1,23 @@
+{
+  "auto_detect": "yes",
+  "customize": {
+    "check_that_exists": "yes",
+    "ck_version": 10,
+    "env_prefix": "CK_ENV_LIB_MLIR",
+    "limit_recursion_dir_search": {
+      "linux": 4,
+      "win": 5
+    },
+    "soft_file": {
+      "linux": "llvm-mlir",
+      "win": "llvm-mlir"
+    }
+  },
+  "soft_name": "LLVM MLIR",
+  "tags": [
+    "llvm",
+    "mlir"
+  ],
+  "template": "yes",
+  "template_type": "LLVM Project"
+}
