@@ -1,0 +1,21 @@
+{
+  "auto_detect": "yes",
+  "customize": {
+    "check_that_exists": "yes",
+    "env_prefix": "CK_ENV_LOAD_A_BASH_SCRIPT",
+    "limit_recursion_dir_search": {
+      "linux": 5,
+      "win": 5
+    },
+    "soft_file_universal": "activate",
+    "version": "generic"
+  },
+  "soft_name": "Load a Bash script",
+  "tags": [
+    "source",
+    "load",
+    "bash",
+    "environment",
+    "venv"
+  ]
+}
