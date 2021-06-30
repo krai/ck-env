@@ -1592,6 +1592,8 @@ def check(i):
            ienv[q[len('ienv.'):]]=i[q]
         elif q.startswith('install_env.'):
            ienv[q[len('install_env.'):]]=i[q]
+        elif q.startswith('cus.'):
+           cus[q[len('cus.'):]]=i[q]
 
     supported_variations = soft_entry_dict.get('variations', {})
     missing_variations = set(required_variations) - set(supported_variations)
