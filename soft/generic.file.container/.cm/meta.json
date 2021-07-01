@@ -1,0 +1,22 @@
+{
+  "auto_detect": "yes",
+  "customize": {
+    "install_env": {
+      ".ROOT":   ""
+    },
+    "check_that_exists": "yes",
+    "ck_version": 10,
+    "env_prefix": "CK_ENV_GENERIC_FILE_CONTAINER",
+    "limit_recursion_dir_search": {
+      "linux": 5
+    },
+    "soft_file_universal": "README.txt",
+    "anchor_depth": 0
+  },
+  "soft_name": "Generic file container",
+  "tags": [
+    "generic",
+    "container"
+  ],
+  "template": "no"
+}
