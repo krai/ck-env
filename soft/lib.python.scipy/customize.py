@@ -121,17 +121,26 @@ def setup(i):
 
     full_path               = cus.get('full_path','')
     path_lib                = os.path.dirname(full_path)
-    path_build              = os.path.dirname(path_lib)
+    path_site_packages      = os.path.dirname(path_lib)
 
     env                     = i['env']
-    env['PYTHONPATH']       = path_build + ( ';%PYTHONPATH%' if winh=='yes' else ':${PYTHONPATH}')
+    env['PYTHONPATH']       = path_site_packages + ( ';%PYTHONPATH%' if winh=='yes' else ':${PYTHONPATH}')
 
-    # The following assumes the package has been installed (rather than detected) :
-    #
-    path_install            = os.path.dirname(path_build)
-    path_bin                = os.path.join(path_install, 'python_deps_site', 'bin')
+    parent_path = path_site_packages
+    trimmed_off = ''
+    found_lib   = False
+    while parent_path!=os.path.sep:
+        if os.path.islink( parent_path ):
+            parent_path = os.readlink( parent_path )    # resolve the link
 
-    if os.path.isdir(path_bin):
-        env['PATH']         = path_bin + ( ';%PATH%' if winh=='yes' else ':${PATH}')
+        parent_path, trimmed_off = os.path.split( parent_path )
+        if trimmed_off in ('lib', 'lib64'):
+            found_lib = True
+            break
+
+    if found_lib:
+        path_bin = os.path.join( parent_path, 'bin' )
+        if os.path.isdir(path_bin):
+            env['PATH']         = path_bin + ( ';%PATH%' if winh=='yes' else ':${PATH}')
 
     return {'return':0, 'bat':''}
